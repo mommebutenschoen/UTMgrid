@@ -1,0 +1,6 @@
+*.pyc
+*~
+*.swp
+__pycache__
+UTMgrid.egg-info/
+_build
