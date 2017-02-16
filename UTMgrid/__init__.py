@@ -2,4 +2,4 @@
 UTMgrid package initialisation.
 """
 
-from UTMgrid import *
+from .UTMgrid import *
