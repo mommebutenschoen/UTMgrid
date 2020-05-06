@@ -14,13 +14,24 @@ except:
 import sys
 
 class UTMgrid:
+
+    """
+    Attributes:
+
+        Proj (list of pyprpoj.Proj): 61 UTM projection zones
+        lonlat (float array-like): lon/lat coordinates [No of points, 2]
+        xy (float array-like): lonlat projections in 61 UTM zones [61,No. of Points,2]
+    """
+
     def __init__(self,LonLat):
-        """Set-Up projection to use.
-        Defines:
-            self.Proj: 61 UTM projection zones
-            self.lonlat: lon/lat coordinates [No of points, 2]
-            self.xy: lonlat projections in 61 UTM zones [61,No. of Points,2]
-                """
+
+        """Set-Up projections to use.
+
+        Args:
+            LonLat )float array-like): lon/lat coordinates to project
+                [No of points, 2]
+        """
+
         self.Proj=[]
         self.lonlat=LonLat
         self.xy=[]
@@ -32,8 +43,18 @@ class UTMgrid:
             self.xy.append(array([x,y]).transpose())
 
     def __call__(self,p):
-        """Computes squared distances from p=[lon,lat] of each point of
-        object grid (N,2) array with lon,lat coordinates."""
+
+        """Computes distances from p=[lon,lat] to each point of
+        object grid (N,2) array with lon,lat coordinates using the UTMzone of
+        p.
+
+        Args:
+            p(float array-like): point in lon,lat coordinates, shape (N,2)
+
+        Returns:
+            Distance of point p to grid points using UTM projection.
+        """
+
         zone=UTMzone(p[0]) #find UTM zone for point p
         pxy=array([self.Proj[zone](p[0],p[1])]) #get projection [x,y] of p
         dz=self.xy[zone]-pxy
