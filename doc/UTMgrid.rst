@@ -1,5 +1,5 @@
-UTMgrid package
-=================
+UTMgrid domentation
+===================
 
 Submodules
 ----------
